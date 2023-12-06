@@ -1,61 +1,169 @@
-const music = new Audio('audio');
+let music=new Audio('audio');
 // music.play();
 
 const songs = [
     {
         id: "1",
-        songName: `Good Good Father<br><div class="subtitle">Chris Tomlin</div>`,
         poster: "Images1/ig1.jpeg",
+        singer:"Chris Tomlin",
+        songTitle:"Good Good Father",
     },
     {
         id: "2",
-        songName: `Heroes<br><div class="subtitle">Ninna Moo</div>`,
-        poster: "Images1/ig2.jpeg"
+        poster: "Images1/ig2.jpeg",
+        singer:"Ninna Moo",
+        songTitle:"Heroes",
     },
     {
         id: "3",
-        songName: `Current World<br><div class="subtitle">Mii</div>`,
-        poster: "Images1/ig3.jpeg"
+        poster: "Images1/ig3.jpeg",
+        singer:"Mii",
+        songTitle:"Current World",
     },
     {
         id: "4",
-        songName: `I surrender<br><div class="subtitle">Micheal W.Smith</div>`,
-        poster: "Images1/ig4.jpeg"
+        poster: "Images1/ig4.jpeg",
+        singer:"Micheal W.Smith",
+        songTitle:"I surrender",
     },
     {
         id: "5",
-        songName: `Fade<br><div class="subtitle">Alan Walker</div>`,
-        poster: "Images1/ig5.jpeg"
+        poster: "Images1/ig5.jpeg",
+        singer:"Alan Walker",
+        songTitle:"Fade",
+
     },
     {
         id: "6",
-        songName: `I will sing<br><div class="subtitle">Don Moen</div>`,
-        poster: "Images1/ig6.jpeg"
+        poster: "Images1/ig6.jpeg",
+        singer:"Don Moen",
+        songTitle:"I will sing",
+    },
+    {
+        id: "7",
+        poster: "Images1/ig7.jpeg",
+        singer:"Ed Sheeran",
+        songTitle:"Shape Of You",
+    },
+    {
+        id: "8",
+        poster: "Images1/ig8.jpeg",
+        singer:"Justin Beiber",
+        songTitle:"Despacito",
+    },
+    {
+        id: "9",
+        poster: "Images1/ig9.jpeg",
+        singer:"Don Moen",
+        songTitle:"I will sing",
+    },
+    {
+        id: "10",
+        poster: "Images1/ig10.jpeg",
+        singer:"Don Moen",
+        songTitle:"I will sing",
+    },
+    {
+        id: "11",
+        poster: "Images1/ig11.jpeg",
+        singer:"Alan Walker",
+        songTitle:"Fade Away",
+    },
+    {
+        id: "12",
+        poster: "Images1/ig12.jpeg",
+        singer:"Micheal Jackson",
+        songTitle:"Mirrors",
+    },
+    {
+        id: "13",
+        poster: "Images1/ig13.jpeg",
+        singer:"Peter Tosh",
+        songTitle:"Equality",
+    },
+    {
+        id: "14",
+        poster: "Images1/ig14.jpeg",
+        singer:"Shilo Ben Hod",
+        songTitle:"Creator of Holy Ones",
+    },
+    {
+        id: "15",
+        poster: "Images1/ig15.jpeg",
+        singer:"Lucky Dube",
+        songTitle:"Reggea is Strong",
+    },
+    {
+        id: "16",
+        poster: "Images1/ig16.jpeg",
+        singer:"Gramps Morgan",
+        songTitle:"One In A Million",
+    },
+    {
+        id: "17",
+        poster: "Images1/ig17.jpeg",
+        singer:"Chris Tomlin",
+        songTitle:"10,000 reasons",
+    },
+    {
+        id: "18",
+        poster: "Images1/ig18.jpeg",
+        singer:"John Legend",
+        songTitle:"All Of Me",
+    },
+    {
+        id: "19",
+        poster: "Images1/ig6.jpeg",
+        singer:"Elijah Kaloki",
+        songTitle:"Salama",
     }
 ]
 
 
-Array.from(document.getElementsByClassName('songItem')).forEach((e, i)=>{
-    e.getElementsByTagName('img')[0].src = songs[i].poster;
-    e.getElementsByTagName('h5')[0].innerHTML = songs[i].songName;
-});
-
-
 //  search data
 let search_results = document.getElementsByClassName('search_results')[0];
+let menu_song=document.getElementsByClassName('menu-song')[0]
+const content=document.getElementsByClassName("content")[0]
+// let counter=window.location.reload()?++1:0
+
+let counter=0
+content.innerHTML=`
+<h1>${songs[counter].singer}-${songs[counter].songTitle}</h1>
+<p>
+    You were the shadow to my light did oyu feel us Another start you fade away <br> 
+    Afraid our aims is out of sight wanna see us Alive
+</p>
+<div class="buttons">
+    <button class="playListPlay" id="${songs[counter].id}">PLAY</button>
+    <button>FOLLOW</button>
+</div>
+`
 
 songs.forEach(element =>{
-    const {id, songName, poster} = element;
+    const {id, songTitle,singer, poster} = element;
     //console.log(songName);
     let card = document.createElement('a');
     card.classList.add('card');
     card.href = "#" + id;
     card.innerHTML = `
     <img src="${poster}" alt="">
-                    <div class="content">
-                        ${songName}
-                    </div>
+    <div class="content">
+        ${songTitle}<br>
+        <div class="subtitle">${singer}</div>
+    </div>
     `;
+
+    let menu = document.createElement('li');
+    menu.classList.add("songItem")
+    menu.innerHTML=`
+    <span>0${id}</span>
+    <img src="${poster}" alt="">
+    <h5>${singer}<br>
+        <div class="subtitle">${singer}</div>
+    </h5>
+    <i class="bi playListPlay bi-play-circle-fill" id="${id}"></i>
+    `
+    menu_song.appendChild(menu)
     search_results.appendChild(card);
 });
 
@@ -86,6 +194,21 @@ input.addEventListener('keyup', ()=>{
 
 let masterplay = document.getElementById('masterplay');
 let wave = document.getElementById('wave');
+let pop_song=document.querySelector('.pop_song')
+
+songs.forEach((song)=>{
+    pop_song.innerHTML+=`
+    <li class="songItem">
+        <div class="img_play">
+            <img src="./Images1/ig${song.id}.jpeg" alt="">
+            <i class="bi playListPlay bi-play-circle-fill" id="${song.id}"></i>
+        </div>
+        <h5>${song.singer}<br>
+            <div class="subtitle">${song.songTitle}</div>
+        </h5>
+    </li>
+    `
+})
 
 masterplay.addEventListener('click', ()=>{
     if (music.paused || music.currentTime <= 0){
@@ -118,10 +241,10 @@ let poster_master_play = document.getElementById('poster_master_play');
 let download_music = document.getElementById('download_music');
 let title = document.getElementById('title');
 
-Array.from(document.getElementsByClassName('playListPlay')).forEach((e)=>{
+Array.from(document.getElementsByClassName('playListPlay')).forEach((e,i)=>{
     e.addEventListener('click', (el)=>{
         index = el.target.id;
-        // console.log(index);
+        console.log(e.id);
         music.src = `audio/${index}.mp3`;
         poster_master_play.src = `img/${index}.jpeg`;
         music.play();
@@ -134,8 +257,11 @@ Array.from(document.getElementsByClassName('playListPlay')).forEach((e)=>{
         });
 
         songTitles.forEach(elss =>{
-            let {songName} = elss;
-            title.innerHTML = songName;
+            let {songTitle,singer} = elss;
+            title.innerHTML = `
+            ${songTitle}<br>
+            <div class="subtitle">${singer}</div>
+            `;
             download_music.setAttribute('download', songName);
         });
 
@@ -164,23 +290,23 @@ music.addEventListener('timeupdate', ()=>{
 
     // console.log(min1);
     if (sec1 < 10) {
-        sec1 = '0${sec1}';
+        sec1 = `0${sec1}`;
     }
-    currentEnd.innerText = '${min1}:${sec1}';
+    currentEnd.innerText = `${min1}:${sec1}`;
 
     let min2 = Math.floor(music_curr / 60);
     let sec2 = Math.floor(music_curr % 60);
     if (sec2 < 10) {
-        sec2 = '0${sec2}';
+        sec2 = `0${sec2}`;
     }
-    currentStart.innerText = '${min2}:${sec2}';
+    currentStart.innerText = `${min2}:${sec2}`;
 
      let progressBar = parseInt((music_curr / music_dur) * 100);
      seek.value = progressBar;
     //  console.log(seek.value);
     let seekbar = seek.value;
-    bar2.style.width = '$(seekbar)%';
-    dot.style.left = '$(seekbar)%';
+    bar2.style.width = `${seekbar}%`;
+    dot.style.left = `${seekbar}%`;
 });
 
 seek.addEventListener('change', ()=>{
@@ -276,7 +402,6 @@ next.addEventListener('click', ()=>{
 
 let pop_song_left = document.getElementById('pop_song_left');
 let pop_song_right = document.getElementById('pop_song_right');
-let pop_song = document.getElementsByClassName('pop_song')[0];
 
 
 pop_song_right.addEventListener('click', ()=>{
@@ -431,4 +556,7 @@ music.addEventListener('ended', ()=>{
     }
 });
 
-
+// document.querySelectorAll('.songItem').forEach((e, i)=>{
+//     e.getElementsByTagName('img')[0].src = songs[i].poster;
+//     e.getElementsByTagName('h5')[0].innerHTML = songs[i].songName;
+// })
